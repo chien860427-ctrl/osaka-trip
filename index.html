@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSAKA</title>
+    
+    
+    <style>
+        :root {
+            --crimson: #c2291e;
+            --crimson-light: #fdf1f0;
+            --crimson-border: #f0c8c5;
+            --brown: #7a5230;
+            --brown-light: #f6efe7;
+            --brown-border: #e0d0be;
+            --red: #d4342a;
+            --red-light: #fef2f1;
+            --red-border: #f5ccc9;
+            --blue: #1565c0;
+            --blue-light: #e8f0fa;
+            --blue-border: #bbcfe8;
+            --green: #2a6e30;
+            --green-light: #eef6ef;
+            --green-border: #c0dfc2;
+            --orange: #c45a00;
+            --orange-light: #fff5eb;
+            --orange-border: #fad6ac;
+            --purple: #6a3c8e;
+            --purple-light: #f5f0fa;
+            --purple-border: #dcc8ee;
+            --teal: #00796b;
+            --teal-light: #e6f5f3;
+            --teal-border: #b2dfdb;
+            --bg: #faf7f3;
+            --card: #ffffff;
+            --text: #1a1a1a;
+            --text-mid: #555;
+            --text-light: #999;
+            --border: #e8e2da;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, 'Helvetica Neue', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 0 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ====== HEADER ====== */
+        .hero {
+            background: linear-gradient(160deg, #d4342a 0%, #b71c1c 60%, #7f0000 100%);
+            color: white;
+            padding: 48px 28px 40px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,.06) 0%, transparent 50%),
+                radial-gradient(circle at 85% 20%, rgba(255,200,150,.08) 0%, transparent 40%);
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg, transparent, transparent 20px,
+                rgba(255,255,255,.02) 20px, rgba(255,255,255,.02) 21px
+            );
+        }
+        .hero-deco {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            font-size: 56px;
+            opacity: .15;
+            filter: blur(0.5px);
+            line-height: 1;
+        }
+        .hero-sub {
+            font-family: Georgia, 'Songti TC', serif;
+            font-size: 13px;
+            letter-spacing: 4px;
+            opacity: .7;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .hero h1 {
+            font-family: -apple-system, 'Helvetica Neue', 'PingFang TC', sans-serif;
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            position: relative;
+        }
+        .hero-date {
+            font-size: 12px;
+            letter-spacing: 2px;
+            opacity: .55;
+            margin-top: 10px;
+            position: relative;
+        }
+
+
+        .icon-emoji { font-style: normal; font-size: 14px; line-height: 1; }
+        .section-head .icon-emoji { font-size: 18px; }
+        .info-icon .icon-emoji { font-size: 18px; }
+        .tip-title .icon-emoji { font-size: 14px; }
+        .food-name .icon-emoji, .shop-name .icon-emoji { font-size: 14px; }
+        .connector .icon-emoji { font-size: 20px; color: #c0b8ac; }
+        .station-chain .icon-emoji { font-size: 11px; color: #bbb; }
+        .route-flow .icon-emoji { font-size: 10px; color: #bbb; }
+
+        /* ====== TAB BAR ====== */
+        .tab-bar {
+            display: flex;
+            gap: 0;
+            background: #3d1210;
+            padding: 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .tab-bar::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            flex: 1;
+            min-width: 0;
+            padding: 13px 8px;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,.45);
+            font-family: -apple-system, 'Helvetica Neue', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            cursor: pointer;
+            transition: all .25s ease;
+            white-space: nowrap;
+            position: relative;
+        }
+        .tab-btn:hover:not(:disabled) {
+            color: rgba(255,255,255,.7);
+            background: rgba(255,255,255,.05);
+        }
+        #r1:checked ~ .tab-bar label[for="r1"],
+        #r2:checked ~ .tab-bar label[for="r2"],
+        #r3:checked ~ .tab-bar label[for="r3"],
+        #r4:checked ~ .tab-bar label[for="r4"],
+        #r5:checked ~ .tab-bar label[for="r5"] {
+            color: white;
+            background: rgba(255,255,255,.1);
+        }
+        #r1:checked ~ .tab-bar label[for="r1"]::after,
+        #r2:checked ~ .tab-bar label[for="r2"]::after,
+        #r3:checked ~ .tab-bar label[for="r3"]::after,
+        #r4:checked ~ .tab-bar label[for="r4"]::after,
+        #r5:checked ~ .tab-bar label[for="r5"]::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            right: 20%;
+            height: 3px;
+            background: white;
+            border-radius: 3px 3px 0 0;
+        }
+        .tab-btn:disabled {
+            color: rgba(255,255,255,.2);
+            cursor: default;
+        }
+        .tab-btn:focus-visible {
+            outline: 2px solid rgba(255,255,255,.6);
+            outline-offset: -2px;
+        }
+
+        /* ====== DAY PANELS ====== */
+        .day-panel {
+            display: none;
+            padding: 24px 16px 0;
+        }
+        #r1:checked ~ .day-panel#day-1,
+        #r2:checked ~ .day-panel#day-2,
+        #r3:checked ~ .day-panel#day-3,
+        #r4:checked ~ .day-panel#day-4,
+        #r5:checked ~ .day-panel#day-5 { display: block; }
+
+        .day-label {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            padding-top: 4px;
+        }
+
+        /* ====== PLACEHOLDER ====== */
+        .placeholder-panel {
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--text-light);
+        }
+        .placeholder-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: .4;
+        }
+        .placeholder-panel p {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* ====== TRANSIT DIAGRAM ====== */
+        .transit-diagram {
+            padding: 8px 0 20px;
+            margin-bottom: 28px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .transit-diagram::-webkit-scrollbar { display: none; }
+        .transit-track {
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            min-width: max-content;
+            padding: 0 4px;
+        }
+        .t-station {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+        .t-station-name {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            letter-spacing: .3px;
+        }
+        .t-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px currentColor;
+            position: relative;
+            z-index: 3;
+        }
+        .t-dot-blue { color: var(--blue); background: var(--blue); }
+        .t-dot-brown { color: var(--brown); background: var(--brown); }
+        .t-dot-red { color: var(--red); background: var(--red); }
+        .t-dot-orange { color: var(--orange); background: var(--orange); }
+        .t-dot-green { color: var(--green); background: var(--green); }
+        .t-dot-purple { color: var(--purple); background: var(--purple); }
+        .t-dot-teal { color: var(--teal); background: var(--teal); }
+        .t-name-blue { color: var(--blue); }
+        .t-name-brown { color: var(--brown); }
+        .t-name-red { color: var(--red); }
+        .t-name-orange { color: var(--orange); }
+        .t-name-green { color: var(--green); }
+        .t-name-purple { color: var(--purple); }
+        .t-name-teal { color: var(--teal); }
+        .t-segment {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            position: relative;
+            min-width: 28px;
+            align-self: flex-end;
+            height: 14px;
+        }
+        .t-seg-line {
+            height: 3px;
+            width: 100%;
+            border-radius: 2px;
+        }
+        .seg-blue .t-seg-line { background: var(--blue); }
+        .seg-brown .t-seg-line { background: var(--brown); }
+        .seg-red .t-seg-line { background: var(--red); }
+        .seg-train .t-seg-line { background: var(--red); }
+        .seg-walk .t-seg-line { background: var(--green); border-style: dashed; height: 2px; border: none; background: repeating-linear-gradient(90deg, var(--green) 0 6px, transparent 6px 10px); }
+        .seg-orange .t-seg-line { background: var(--orange); }
+        .seg-teal .t-seg-line { background: var(--teal); }
+
+        /* ====== SECTION ====== */
+        .section {
+            margin-bottom: 12px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            border-radius: 14px 14px 0 0;
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: .5px;
+        }
+        .section-head svg { flex-shrink: 0; }
+        .section-head .tag {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 500;
+            background: rgba(255,255,255,.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .head-blue { background: var(--blue); }
+        .head-brown { background: var(--brown); }
+        .head-red { background: var(--red); }
+        .head-green { background: var(--green); }
+        .head-orange { background: var(--orange); }
+        .head-teal { background: var(--teal); }
+        .head-purple { background: var(--purple); }
+        .head-crimson { background: var(--crimson); }
+
+        .section-body {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 14px 14px;
+            padding: 20px;
+        }
+        .connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 0;
+        }
+        .connector svg { color: #c0b8ac; }
+
+        /* ====== INFO ROW ====== */
+        .info {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 16px;
+            align-items: flex-start;
+        }
+        .info:last-child { margin-bottom: 0; }
+        .info-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .info-icon svg { width: 20px; height: 20px; }
+        .icon-blue { background: var(--blue-light); color: var(--blue); }
+        .icon-brown { background: var(--brown-light); color: var(--brown); }
+        .icon-red { background: var(--red-light); color: var(--red); }
+        .icon-green { background: var(--green-light); color: var(--green); }
+        .icon-orange { background: var(--orange-light); color: var(--orange); }
+        .icon-teal { background: var(--teal-light); color: var(--teal); }
+        .icon-purple { background: var(--purple-light); color: var(--purple); }
+        .info-content { flex: 1; font-size: 14px; }
+        .info-content strong { display: block; font-size: 15px; color: var(--text); margin-bottom: 1px; }
+        .info-content .sub { color: var(--text-mid); }
+
+        /* ====== STEPS ====== */
+        .steps {
+            counter-reset: step;
+            padding: 0;
+            list-style: none;
+        }
+        .steps li {
+            counter-increment: step;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            font-size: 14px;
+            align-items: flex-start;
+        }
+        .steps li:last-child { margin-bottom: 0; }
+        .steps li::before {
+            content: counter(step);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .steps-blue li::before { background: var(--blue-light); color: var(--blue); }
+        .steps-brown li::before { background: var(--brown-light); color: var(--brown); }
+        .steps li .step-text { flex: 1; }
+
+        /* ====== TIP BOX ====== */
+        .tip {
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-top: 16px;
+            font-size: 13px;
+            line-height: 1.85;
+        }
+        .tip-title {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+        .tip-title svg { width: 16px; height: 16px; flex-shrink: 0; }
+        .tip-item {
+            padding: 3px 0 3px 18px;
+            position: relative;
+            font-size: 13px;
+        }
+        .tip-item::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 12px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #c0b8ac;
+        }
+        .tip-blue { background: var(--blue-light); border: 1px solid var(--blue-border); }
+        .tip-blue .tip-title { color: var(--blue); }
+        .tip-brown { background: var(--brown-light); border: 1px solid var(--brown-border); }
+        .tip-brown .tip-title { color: var(--brown); }
+        .tip-red { background: var(--red-light); border: 1px solid var(--red-border); }
+        .tip-red .tip-title { color: var(--red); }
+        .tip-green { background: var(--green-light); border: 1px solid var(--green-border); }
+        .tip-green .tip-title { color: var(--green); }
+        .tip-orange { background: var(--orange-light); border: 1px solid var(--orange-border); }
+        .tip-orange .tip-title { color: var(--orange); }
+        .tip-teal { background: var(--teal-light); border: 1px solid var(--teal-border); }
+        .tip-teal .tip-title { color: var(--teal); }
+        .tip-yellow { background: #fffce8; border: 1px solid #f0e68c; }
+        .tip-yellow .tip-title { color: #9e8600; }
+
+        /* ====== HIGHLIGHT / BADGE ====== */
+        .hl { font-weight: 700; }
+        .hl-red { color: var(--red); }
+        .hl-brown { color: var(--brown); }
+        .hl-blue { color: var(--blue); }
+        .hl-green { color: var(--green); }
+        .hl-orange { color: var(--orange); }
+        .hl-teal { color: var(--teal); }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 9px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: white;
+            font-weight: 700;
+            vertical-align: middle;
+        }
+        .badge-blue { background: var(--blue); }
+        .badge-brown { background: var(--brown); }
+        .badge-red { background: var(--red); }
+        .badge-orange { background: var(--orange); }
+        .badge-teal { background: var(--teal); }
+
+        /* ====== ROUTE FLOW ====== */
+        .route-flow {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .route-flow .rf-arrow {
+            width: 12px;
+            height: 12px;
+            color: #bbb;
+            flex-shrink: 0;
+        }
+
+        /* ====== STATION CHAIN ====== */
+        .station-chain {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 10px 0 4px;
+            flex-wrap: wrap;
+            row-gap: 6px;
+        }
+        .station-chain .stn {
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+        .station-chain .stn-arrow {
+            width: 14px;
+            height: 14px;
+            color: #bbb;
+            flex-shrink: 0;
+        }
+        .stn-current { background: var(--brown-light); color: var(--brown); font-weight: 700; }
+        .stn-pass { background: #f3f0ec; color: #999; }
+        .stn-dest { background: var(--brown); color: white; font-weight: 700; }
+
+        /* ====== FOOD / SHOP CARD ====== */
+        .food-card, .shop-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-top: 12px;
+            transition: box-shadow .2s ease, transform .2s ease;
+        }
+        .food-card:hover, .shop-card:hover {
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+            transform: translateY(-1px);
+        }
+        .food-card + .food-card, .shop-card + .shop-card { margin-top: 10px; }
+        .food-name, .shop-name {
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .food-name svg { width: 16px; height: 16px; color: var(--orange); }
+        .shop-name svg { width: 16px; height: 16px; color: var(--purple); }
+        .food-meta, .shop-meta {
+            font-size: 13px;
+            color: var(--text-mid);
+            margin-top: 4px;
+        }
+        .food-price {
+            display: inline-block;
+            background: #fff5eb;
+            color: var(--orange);
+            font-weight: 700;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 36px 20px 0;
+            font-size: 13px;
+            color: #b5a998;
+            letter-spacing: 1px;
+        }
+        .footer-line {
+            width: 40px;
+            height: 1px;
+            background: var(--border);
+            margin: 0 auto 12px;
+        }
+        .sep { border: none; border-top: 1px dashed var(--border); margin: 16px 0; }
+
+        /* ====== BACK TO TOP ====== */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--red);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,.2);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity .3s, transform .3s;
+            z-index: 200;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            background: #b71c1c;
+        }
+        .back-to-top svg { width: 20px; height: 20px; transform: rotate(180deg); }
+
+        @media print {
+            body { background: white; }
+            .hero { box-shadow: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            .tab-bar { print-color-adjust: exact; -webkit-print-color-adjust: exact; position: static; }
+            .section { break-inside: avoid; }
+            .back-to-top { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ====== SVG ICONS ====== -->
+
+
+<div class="page">
+    
+        <!-- HEADER -->
+        <header class="hero" role="banner">
+            <div class="hero-deco">⛩️</div>
+            <h1>OSAKA</h1>
+            <p class="hero-date">Travel Itinerary</p>
+        </header>
+
+        <input type="radio" name="day" id="r1" checked style="display:none">
+        <input type="radio" name="day" id="r2" style="display:none">
+        <input type="radio" name="day" id="r3" style="display:none">
+        <input type="radio" name="day" id="r4" style="display:none">
+        <input type="radio" name="day" id="r5" style="display:none">
+        <div class="tab-bar">
+            <label class="tab-btn" for="r1">DAY 1</label>
+            <label class="tab-btn" for="r2">DAY 2</label>
+            <label class="tab-btn" for="r3">DAY 3</label>
+            <label class="tab-btn" for="r4">DAY 4</label>
+            <label class="tab-btn" for="r5">DAY 5</label>
+        </div>
+
+        <!-- ====== DAY 1 PANEL ====== -->
+        <div class="day-panel" id="day-1">
+            <div class="day-label">DAY 1 ─ 高雄 → 大阪</div>
+
+            <nav class="transit-diagram" aria-label="Day 1 行程路線圖">
+                <div class="transit-track">
+                    <div class="t-station">
+                        <span class="t-station-name t-name-blue">高雄</span>
+                        <div class="t-dot t-dot-blue"></div>
+                    </div>
+                    <div class="t-segment seg-blue"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-blue">關西機場</span>
+                        <div class="t-dot t-dot-blue"></div>
+                    </div>
+                    <div class="t-segment seg-brown"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-brown">飯店</span>
+                        <div class="t-dot t-dot-brown"></div>
+                    </div>
+                    <div class="t-segment seg-orange"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-orange">道頓堀</span>
+                        <div class="t-dot t-dot-orange"></div>
+                    </div>
+                    <div class="t-segment seg-teal"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-teal">飯店周邊</span>
+                        <div class="t-dot t-dot-teal"></div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- SECTION 1: Flight -->
+            <section class="section">
+                <div class="section-head head-blue">
+                    <span class="icon-emoji">✈</span>
+                    高雄小港機場出發
+                    <span class="tag">07:05 起飛</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-blue"><span class="icon-emoji">✈</span></div>
+                        <div class="info-content">
+                            <strong>長榮航空 BR182</strong>
+                            <span class="sub">高雄 KHH → 關西 KIX</span>
+                        </div>
+                    </div>
+                    <div class="tip tip-blue">
+                        <div class="tip-title">
+                            <span class="icon-emoji">ℹ</span>
+                            航班資訊
+                        </div>
+                        <div class="tip-item">起飛：<span class="hl hl-blue">07:05</span></div>
+                        <div class="tip-item">抵達：<span class="hl hl-blue">10:55</span>（日本時間）</div>
+                        <div class="tip-item">飛行時間約 2 小時 50 分</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 2: Airport to Hotel -->
+            <section class="section">
+                <div class="section-head head-brown">
+                    <span class="icon-emoji">🚃</span>
+                    關西機場 → 飯店 Check-in
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🚃</span></div>
+                        <div class="info-content">
+                            <strong>南海電鐵 空港急行</strong>
+                            <span class="sub">票價 ¥970，搭到新今宮站（Shin-Imamiya, NK03）</span>
+                        </div>
+                    </div>
+                    <hr class="sep">
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🗺</span></div>
+                        <div class="info-content">
+                            <strong>詳細步行動線</strong>
+                            <span class="sub">從 <span class="hl hl-brown">West Exit（西出口）</span>出站，往北沿「<span class="hl hl-brown">紀州街道</span>」步行約 8 分鐘抵達飯店 STAY IN YEBISU</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 3: Dotonbori -->
+            <section class="section">
+                <div class="section-head head-orange">
+                    <span class="icon-emoji">🏪</span>
+                    道頓堀・心齋橋
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🚇</span></div>
+                        <div class="info-content">
+                            <strong>交通方式</strong>
+                            <span class="sub">從<span class="hl hl-brown">惠美須町站（K18）</span><span class="hl hl-red">4 號出口</span>進站，搭地鐵<span class="badge badge-brown">堺筋線 K</span>往北</span>
+                        </div>
+                    </div>
+                    <div class="station-chain" style="justify-content:center;">
+                        <span class="stn stn-current">K18 惠美須町</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-dest">K17 日本橋</span>
+                        <span style="margin:0 4px;color:#999;font-size:11px">或</span>
+                        <span class="stn stn-dest">K16 長堀橋</span>
+                    </div>
+                    <hr class="sep">
+
+                    <!-- Food -->
+                    <div class="tip-title" style="color:var(--orange); margin-bottom:4px;">
+                        <span class="icon-emoji">🍽</span>
+                        必吃美食清單
+                    </div>
+                    <div class="tip tip-orange" style="margin-top:8px;">
+                        <div class="tip-title"><span class="icon-emoji">⭐</span> 正餐類</div>
+                        <div class="tip-item">螃蟹道樂（烤蟹腳）</div>
+                        <div class="tip-item">一蘭拉麵</div>
+                        <div class="tip-item">金龍拉麵</div>
+                        <div class="tip-item">串炸達摩</div>
+                    </div>
+                    <div class="tip tip-orange" style="margin-top:8px;">
+                        <div class="tip-title"><span class="icon-emoji">⭐</span> 街邊小吃</div>
+                        <div class="tip-item">本家章魚燒</div>
+                        <div class="tip-item">章魚燒道樂 Wanaka</div>
+                        <div class="tip-item">PABLO 半熟起司塔</div>
+                    </div>
+                    <hr class="sep">
+
+                    <!-- Shopping -->
+                    <div class="tip-title" style="color:var(--purple); margin-bottom:4px;">
+                        <span class="icon-emoji">🛍</span>
+                        逛街重點
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 心齋橋 PARCO & 大丸百貨</div>
+                        <div class="shop-meta">兩棟百貨 2-10 樓設有連通橋，包含動漫 IP 專賣店、人氣角色中心、精品化妝品與地下食品街</div>
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 心齋橋筋商店街</div>
+                        <div class="shop-meta">各式藥妝店（松本清 / Sun Drug / OS Drug）、服飾旗艦店</div>
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 唐吉訶德（道頓堀店）</div>
+                        <div class="shop-meta">黃色摩天輪地標，24 小時營業</div>
+                    </div>
+                    <hr class="sep">
+
+                    <!-- Souvenirs -->
+                    <div class="tip-title" style="color:var(--crimson); margin-bottom:4px;">
+                        <span class="icon-emoji">⭐</span>
+                        必買伴手禮
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> Henri Charpentier</div>
+                        <div class="food-meta">心齋橋大丸百貨 B1 設有專櫃，全日本銷售第一的費南雪，必買！</div>
+                    </div>
+                    <hr class="sep">
+
+                    <!-- Tax free -->
+                    <div class="tip tip-yellow">
+                        <div class="tip-title"><span class="icon-emoji">ℹ</span> 購物備註（退稅資訊）</div>
+                        <div class="tip-item">百貨公司（大丸 / PARCO）通常設有統一退稅櫃台，購物完請攜帶護照前往指定樓層辦理（部分品牌需單櫃辦理，建議購買前確認）</div>
+                        <div class="tip-item">藥妝店通常在結帳時出示護照即可直接扣除消費稅</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 4: Return to hotel -->
+            <section class="section">
+                <div class="section-head head-teal">
+                    <span class="icon-emoji">🌙</span>
+                    飯店周邊探索 & 超市採買
+                    <span class="tag">晚間</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🚇</span></div>
+                        <div class="info-content">
+                            <strong>返回方式</strong>
+                            <span class="sub">心齋橋區步行至<span class="hl hl-brown">長堀橋站（K16）</span>搭<span class="badge badge-brown">堺筋線 K</span>回惠美須町站（K18）</span>
+                        </div>
+                    </div>
+                    <hr class="sep">
+
+                    <div class="tip-title" style="color:var(--teal); margin-bottom:4px;">
+                        <span class="icon-emoji">🗺</span>
+                        飯店附近加碼逛（體力許可）
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">🗼</span> 通天閣・新世界本通商店街</div>
+                        <div class="shop-meta">拍復古大阪夜景</div>
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 日本橋電器街（Den Den Town）</div>
+                        <div class="shop-meta">動漫、公仔與電玩採買</div>
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> Mega 唐吉訶德 新今宮店</div>
+                        <div class="shop-meta">空間寬敞、深夜掃貨推薦</div>
+                    </div>
+                    <hr class="sep">
+
+                    <div class="tip tip-yellow">
+                        <div class="tip-title"><span class="icon-emoji">🛒</span> 重要備註：超市採買</div>
+                        <div class="tip-item"><span class="hl">玉出超市（惠美須店）</span>— 位於惠美須町站 <span class="hl hl-red">4 號出口</span> 旁</div>
+                        <div class="tip-item">建議回飯店前買零食、飲料或季節水果，超值又方便</div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-line"></div>
+                DAY 1 行程結束
+            </footer>
+        </div>
+
+        <!-- ====== DAY 2 PANEL ====== -->
+        <div class="day-panel" id="day-2">
+            <div class="day-label">DAY 2 ─ 梅田購物逛街</div>
+
+            <nav class="transit-diagram" aria-label="Day 2 行程路線圖">
+                <div class="transit-track">
+                    <div class="t-station">
+                        <span class="t-station-name t-name-brown">飯店</span>
+                        <div class="t-dot t-dot-brown"></div>
+                    </div>
+                    <div class="t-segment seg-red"><div class="t-seg-line" style="background:var(--red);"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-red">梅田</span>
+                        <div class="t-dot t-dot-red"></div>
+                    </div>
+                    <div class="t-segment seg-walk"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-orange">中崎町</span>
+                        <div class="t-dot t-dot-orange"></div>
+                    </div>
+                    <div class="t-segment seg-walk"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-purple">阪急百貨</span>
+                        <div class="t-dot t-dot-purple"></div>
+                    </div>
+                    <div class="t-segment seg-red"><div class="t-seg-line" style="background:var(--red);"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-brown">飯店</span>
+                        <div class="t-dot t-dot-brown"></div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- SECTION 1: Hotel to Umeda -->
+            <section class="section">
+                <div class="section-head head-brown">
+                    <span class="icon-emoji">🚶</span>
+                    飯店 → 動物園前站
+                    <span class="tag">步行 7 分鐘</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🏨</span></div>
+                        <div class="info-content">
+                            <strong>起點：Stay in Yebisu 飯店</strong>
+                            <span class="sub">步行至<span class="hl hl-red">動物園前站（M22）</span></span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-red"><span class="icon-emoji">🚇</span></div>
+                        <div class="info-content">
+                            <strong>搭乘 <span class="badge badge-red">御堂筋線 M</span></strong>
+                            <span class="sub">往「梅田・新大阪」方向</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-red"><span class="icon-emoji">🚩</span></div>
+                        <div class="info-content">
+                            <strong>下車站：梅田站（M16）</strong>
+                            <span class="sub">由「<span class="hl hl-red">北改札口</span>」出站，朝「JR 大阪站 / LUCUA」指標走</span>
+                        </div>
+                    </div>
+
+                    <div class="station-chain" style="justify-content:center;">
+                        <span class="stn stn-current">M22 動物園前</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-pass">…</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-pass">M17 淀屋橋</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-dest">M16 梅田</span>
+                    </div>
+
+                    <div class="tip tip-red">
+                        <div class="tip-title"><span class="icon-emoji">ℹ</span> 交通資訊</div>
+                        <div class="tip-item">票價 ¥280（單程），ICOCA / Suica 直接刷卡</div>
+                        <div class="tip-item">車程約 15 分鐘，列車密度高不用擔心等車</div>
+                        <div class="tip-item">御堂筋線車身是<span class="hl hl-red">紅色</span>的，很好辨識</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 2: Umeda Lunch -->
+            <section class="section">
+                <div class="section-head head-orange">
+                    <span class="icon-emoji">🍽</span>
+                    梅田午餐推薦
+                    <span class="tag">五星高分名店</span>
+                </div>
+                <div class="section-body">
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 牛かつ もと村（Motomura）</div>
+                        <div class="food-meta">Threads 熱推！外酥內嫩的石盤現烤炸牛排，可以自己控制熟度</div>
+                        <span class="food-price">¥1,600 ~ ¥2,200</span>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> いづも（Idumo）鰻魚飯</div>
+                        <div class="food-meta">LUCUA B2。招牌「巨大鰻魚玉子燒蓋飯」，視覺衝擊超滿足</div>
+                        <span class="food-price">¥1,800 ~ ¥2,500</span>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> New Babe（中崎町店）</div>
+                        <div class="food-meta">Google 高分。極厚切低溫油炸豬排，肉質粉嫩多汁</div>
+                        <span class="food-price">¥1,500 ~ ¥2,000</span>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 挽肉と米（梅田店）</div>
+                        <div class="food-meta">炭火現烤純牛肉漢堡排，搭配白飯無限續</div>
+                        <span class="food-price">¥1,500 ~ ¥1,800</span>
+                    </div>
+
+                    <div class="tip tip-yellow" style="margin-top:14px;">
+                        <div class="tip-title"><span class="icon-emoji">⚠</span> 預約提醒</div>
+                        <div class="tip-item"><span class="hl">挽肉と米</span>需<span class="hl hl-red">當日線上預約</span>，建議一早就搶位</div>
+                        <div class="tip-item">其他店家建議<span class="hl">避開 12:00-13:00</span> 尖峰用餐時段</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 3: Nakazakicho + Sweets + Souvenirs -->
+            <section class="section">
+                <div class="section-head head-green">
+                    <span class="icon-emoji">📷</span>
+                    中崎町散步・甜點・精品伴手禮
+                </div>
+                <div class="section-body">
+                    <!-- Walking route -->
+                    <div class="tip tip-green" style="margin-top:0;">
+                        <div class="tip-title"><span class="icon-emoji">🗺</span> 散步動線</div>
+                        <div class="route-flow" style="color:var(--green);">
+                            <span>LUCUA</span><span class="icon-emoji">›</span>
+                            <span>NU 茶屋町</span><span class="icon-emoji">›</span>
+                            <span>中崎町老屋巷弄</span><span class="icon-emoji">›</span>
+                            <span>阪急百貨</span>
+                        </div>
+                    </div>
+
+                    <div class="info" style="margin-top:16px;">
+                        <div class="info-icon icon-green"><span class="icon-emoji">📷</span></div>
+                        <div class="info-content">
+                            <strong>中崎町</strong>
+                            <span class="sub">大阪最有味道的老屋巷弄區，改建咖啡廳、雜貨小店林立，非常好拍</span>
+                        </div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <!-- Ramen spot -->
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 魁力屋（梅田茶屋町店）</div>
+                        <div class="food-meta">位於中崎町與梅田交界點（街邊店），「背脂醬油拉麵」非常道地，蔥花可自由加滿</div>
+                        <span class="food-price">¥800 ~ ¥1,100</span>
+                    </div>
+
+                    <div class="tip tip-yellow" style="margin-top:10px;">
+                        <div class="tip-title"><span class="icon-emoji">ℹ</span> 備註</div>
+                        魁力屋全天營業且開得比較晚，午餐吃太飽的話，也可以當作回飯店前的宵夜或晚餐預備方案
+                    </div>
+
+                    <hr class="sep">
+
+                    <!-- Sweets -->
+                    <div class="tip-title" style="color:var(--orange); margin-bottom:4px;">
+                        <span class="icon-emoji">🍽</span>
+                        下午茶（IG 熱門）
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> coucou amande</div>
+                        <div class="food-meta">中崎町老屋改建的達克瓦茲專賣店，小巧精緻，適合外帶邊走邊吃</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> GARIGUETTE</div>
+                        <div class="food-meta">LUCUA 1100 2F 旁的圓形千層派排隊名店，口感酥脆層次分明</div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <!-- Souvenirs -->
+                    <div class="tip-title" style="color:var(--purple); margin-bottom:4px;">
+                        <span class="icon-emoji">🛍</span>
+                        精品伴手禮（阪急百貨 B1）
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> Henri Charpentier（費南雪）</div>
+                        <div class="shop-meta">全日本銷售第一的費南雪，阪急百貨 B1 設有專櫃。如果 DAY 1 在心齋橋沒買到，這裡一定要補貨！</div>
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 小倉山莊（仙貝）</div>
+                        <div class="shop-meta">阪急百貨 B1。精緻包裝的京都仙貝，送禮自用兩相宜</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 4: Dinner & Return -->
+            <section class="section">
+                <div class="section-head head-teal">
+                    <span class="icon-emoji">🌙</span>
+                    晚餐 & 返回飯店
+                    <span class="tag">晚間</span>
+                </div>
+                <div class="section-body">
+                    <!-- Dinner -->
+                    <div class="tip-title" style="color:var(--orange); margin-bottom:4px;">
+                        <span class="icon-emoji">🍽</span>
+                        晚餐推薦
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 燒肉 Lab</div>
+                        <div class="food-meta">高 CP 值街邊燒肉店</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 五條家海鮮丼</div>
+                        <div class="food-meta">高 CP 值街邊店，新鮮海鮮丼物</div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <!-- Return routes -->
+                    <div class="tip-title" style="color:var(--teal); margin-bottom:8px;">
+                        <span class="icon-emoji">🔄</span>
+                        回程雙路線建議
+                    </div>
+
+                    <div class="tip tip-red" style="margin-top:0;">
+                        <div class="tip-title">
+                            <span class="icon-emoji">🚇</span>
+                            方案 A — 省力直達
+                        </div>
+                        <div class="tip-item">由<span class="hl hl-red">梅田站（M16）</span>搭 <span class="badge badge-red">御堂筋線 M</span> 直達<span class="hl hl-red">動物園前站（M22）</span></div>
+                        <div class="tip-item">由 <span class="hl hl-red">5 號出口</span> 出站，步行 7 分鐘回飯店</div>
+                    </div>
+
+                    <div class="tip tip-brown" style="margin-top:10px;">
+                        <div class="tip-title">
+                            <span class="icon-emoji">🔄</span>
+                            方案 B — 走最少路
+                        </div>
+                        <div class="tip-item">搭 <span class="badge badge-red">御堂筋線 M</span> 到<span class="hl hl-red">動物園前站（M22）</span></div>
+                        <div class="tip-item">站內轉乘 <span class="badge badge-brown">堺筋線 K</span> 坐一站至<span class="hl hl-brown">惠美須町站（K18）</span></div>
+                        <div class="tip-item">由 <span class="hl hl-brown">3 號或 5 號出口</span> 出站，步行僅 3 分鐘回飯店</div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <!-- Notes -->
+                    <div class="tip tip-yellow">
+                        <div class="tip-title"><span class="icon-emoji">⚠</span> 購物與交通筆記</div>
+                        <div class="tip-item"><span class="hl">呼吸巧克力</span>：回程在<span class="hl hl-blue">關西機場免稅店</span>購買即可，不用在市區提貨，省去攜帶麻煩</div>
+                        <div class="tip-item"><span class="hl">魁力屋</span>全天營業，午餐吃太飽可改當宵夜預備方案</div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-line"></div>
+                DAY 2 行程結束
+            </footer>
+        </div>
+
+        <!-- ====== DAY 3 PANEL ====== -->
+        <div class="day-panel" id="day-3">
+            <div class="day-label">DAY 3 ─ 京都一日遊</div>
+
+            <nav class="transit-diagram" aria-label="Day 3 行程路線圖">
+                <div class="transit-track">
+                    <div class="t-station">
+                        <span class="t-station-name t-name-brown">大阪</span>
+                        <div class="t-dot t-dot-brown"></div>
+                    </div>
+                    <div class="t-segment seg-train"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-red">伏見稻荷</span>
+                        <div class="t-dot t-dot-red"></div>
+                    </div>
+                    <div class="t-segment seg-train"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-green">清水寺</span>
+                        <div class="t-dot t-dot-green"></div>
+                    </div>
+                    <div class="t-segment seg-walk"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-purple">祇園</span>
+                        <div class="t-dot t-dot-purple"></div>
+                    </div>
+                    <div class="t-segment seg-walk"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-orange">錦市場</span>
+                        <div class="t-dot t-dot-orange"></div>
+                    </div>
+                    <div class="t-segment seg-train"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-brown">大阪</span>
+                        <div class="t-dot t-dot-brown"></div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Walk to station -->
+            <section class="section">
+                <div class="section-head head-brown">
+                    <span class="icon-emoji">🚶</span>
+                    前往地鐵站
+                    <span class="tag">步行 6 分鐘</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🏨</span></div>
+                        <div class="info-content">
+                            <strong>起點：Stay in Yebisu 飯店</strong>
+                            <span class="sub">步行約 5-6 分鐘（400 公尺）到惠美須町站</span>
+                        </div>
+                    </div>
+                    <ol class="steps steps-brown">
+                        <li><div class="step-text">從飯店出來，往大馬路「<span class="hl hl-brown">堺筋</span>」方向走</div></li>
+                        <li>
+                            <div class="step-text">
+                                尋找<span class="hl hl-brown">惠美須町站（Ebisucho）</span><br>
+                                → <span class="hl hl-red">1-B 號出口</span>（離飯店最近，有電梯）<br>
+                                → <span class="hl hl-red">2 號出口</span>（也很近，有手扶梯）
+                            </div>
+                        </li>
+                        <li><div class="step-text">認路口訣：看到「Osaka Metro」標誌，跟著<span class="badge badge-brown">K 咖啡色</span>標示走</div></li>
+                    </ol>
+                    <div class="tip tip-brown">
+                        <div class="tip-title"><span class="icon-emoji">🎫</span> 進站資訊</div>
+                        <div class="tip-item">票價 ¥190（單程），ICOCA / Suica 直接刷卡進站</div>
+                        <div class="tip-item">月台：<span class="hl hl-brown">2 號月台</span>，往「天神橋筋六丁目 / 北千里」方向</div>
+                        <div class="tip-item">車身也是咖啡色</div>
+                        <div class="tip-item">有時會來暗紅色的阪急電車，方向對都可以搭</div>
+                    </div>
+                    <div class="station-chain">
+                        <span class="stn stn-current">K18 惠美須町</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-pass">K17 日本橋</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-pass">K16 長堀橋</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-pass">K15 堺筋本町</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-dest">K14 北濱</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- Transfer to Keihan -->
+            <section class="section">
+                <div class="section-head head-red">
+                    <span class="icon-emoji">🔄</span>
+                    轉乘：京阪電車（北濱 → 伏見稻荷）
+                    <span class="tag">約 50 分</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-red"><span class="icon-emoji">🚃</span></div>
+                        <div class="info-content">
+                            <strong>北濱站地下連通道轉乘</strong>
+                            <span class="sub">出閘門後，跟著「京阪電車 (Keihan)」指標走，不用出到地面</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-red"><span class="icon-emoji">🚩</span></div>
+                        <div class="info-content">
+                            <strong>月台：往「出町柳」方向</strong>
+                        </div>
+                    </div>
+                    <div class="tip tip-red">
+                        <div class="tip-title"><span class="icon-emoji">ℹ</span> 車種辨識</div>
+                        <div class="tip-item"><span class="badge badge-red">紅色 特急</span> — 最快，但要在「丹波橋」換普通車</div>
+                        <div class="tip-item"><span class="badge badge-blue">藍色 準急</span> / <span class="badge badge-orange">橘色 急行</span> — 可直達<span class="hl hl-red">伏見稻荷站</span>，不用換車</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- Fushimi Inari -->
+            <section class="section">
+                <div class="section-head head-crimson">
+                    <span class="icon-emoji">⛩</span>
+                    伏見稻荷大社
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-red"><span class="icon-emoji">📷</span></div>
+                        <div class="info-content">
+                            <strong>必拍：千本鳥居</strong>
+                            <span class="sub">結束後回車站搭「準急」或「普通」繼續前往清水寺</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- Kiyomizu-dera -->
+            <section class="section">
+                <div class="section-head head-green">
+                    <span class="icon-emoji">🏛</span>
+                    清水寺散策
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-green"><span class="icon-emoji">🚇</span></div>
+                        <div class="info-content">
+                            <strong>下車站：清水五條站</strong>
+                            <span class="sub">搭準急或普通車往出町柳方向，約 3-4 站</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-green"><span class="icon-emoji">🚶</span></div>
+                        <div class="info-content">
+                            <strong>步行上山</strong>
+                            <span class="sub">走 <span class="hl hl-red">4 號出口</span> 出站，沿「五條通」走 → 右轉「五條坂」上山</span>
+                        </div>
+                    </div>
+                    <div class="tip tip-green">
+                        <div class="tip-title"><span class="icon-emoji">🗺</span> 散步路線</div>
+                        <div class="route-flow" style="color:var(--green);">
+                            <span>仁王門</span><span class="icon-emoji">›</span>
+                            <span>三重塔</span><span class="icon-emoji">›</span>
+                            <span>清水舞台</span><span class="icon-emoji">›</span>
+                            <span>地主神社</span><span class="icon-emoji">›</span>
+                            <span>音羽瀑布</span><span class="icon-emoji">›</span>
+                            <span>三年坂</span><span class="icon-emoji">›</span>
+                            <span>二年坂</span><span class="icon-emoji">›</span>
+                            <span>八坂塔</span>
+                        </div>
+                    </div>
+                    <hr class="sep">
+
+                    <!-- Lunch -->
+                    <div class="tip-title" style="color:var(--orange); margin-bottom:4px;">
+                        <span class="icon-emoji">🍽</span>
+                        午餐推薦
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 清水順正 おかべ家</div>
+                        <div class="food-meta">就在仁王門旁巷子進去，京都有名的「湯豆腐」料理，也有天婦羅定食<br>日式庭園環境很棒，適合好好坐下來休息</div>
+                        <span class="food-price">¥2,500 ~ ¥3,500</span>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> ひさご Hisago</div>
+                        <div class="food-meta">沿三年坂走下去，往「石塀小路」方向<br>京都最有名的親子丼之一，蛋液滑嫩、雞肉鮮甜，灑上山椒粉超級美味</div>
+                        <span class="food-price">¥1,200 ~ ¥1,500</span>
+                    </div>
+                    <div class="tip tip-yellow" style="margin-top:14px;">
+                        <div class="tip-title"><span class="icon-emoji">⭐</span> 甜點推薦（二三年坂）</div>
+                        <div class="tip-item"><span class="hl">藤菜美</span> — 醬油糰子 / 洛水（冰抹茶）</div>
+                        <div class="tip-item"><span class="hl">星巴克 二寧坂茶屋店</span> — 全球唯一榻榻米星巴克</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- Gion -->
+            <section class="section">
+                <div class="section-head head-purple">
+                    <span class="icon-emoji">🏮</span>
+                    八坂塔 → 祇園 & 花見小路
+                </div>
+                <div class="section-body">
+                    <div class="tip" style="margin-top:0; background:var(--purple-light); border: 1px solid var(--purple-border);">
+                        <div class="tip-title" style="color:var(--purple);">
+                            <span class="icon-emoji">🗺</span>
+                            散步路線
+                        </div>
+                        <div class="route-flow" style="color:var(--purple);">
+                            <span>高台寺</span><span class="icon-emoji">›</span>
+                            <span>八坂神社</span><span class="icon-emoji">›</span>
+                            <span>西樓門</span><span class="icon-emoji">›</span>
+                            <span>祇園商店街</span><span class="icon-emoji">›</span>
+                            <span>花見小路</span>
+                        </div>
+                    </div>
+                    <div class="info" style="margin-top:16px;">
+                        <div class="info-icon icon-purple"><span class="icon-emoji">📷</span></div>
+                        <div class="info-content">
+                            <strong>花見小路</strong>
+                            <span class="sub">古色古香的街道拍照，尋找藝妓的身影</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-purple"><span class="icon-emoji">🏛</span></div>
+                        <div class="info-content">
+                            <strong>八坂神社</strong>
+                            <span class="sub">參拜美容水</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-purple"><span class="icon-emoji">📷</span></div>
+                        <div class="info-content">
+                            <strong>建仁寺（選去）</strong>
+                            <span class="sub">如果有時間，推薦進去看壯觀的「雙龍圖」</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- Nishiki Market -->
+            <section class="section">
+                <div class="section-head head-orange">
+                    <span class="icon-emoji">🏪</span>
+                    祇園 → 錦市場
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-orange"><span class="icon-emoji">🌉</span></div>
+                        <div class="info-content">
+                            <strong>從祇園四條站過橋 → 鴨川 → 河原町商圈</strong>
+                            <span class="sub">看到大丸百貨附近的巷子，鑽進去就是錦市場</span>
+                        </div>
+                    </div>
+                    <div class="tip tip-orange" style="margin-top:12px;">
+                        <div class="tip-title"><span class="icon-emoji">⚠</span> 錦市場倒數計時</div>
+                        <span class="hl hl-red">16:00 前</span>必須抵達！有些店下午 5 點就收攤
+                    </div>
+                    <hr class="sep">
+
+                    <div class="tip-title" style="color:var(--orange); margin-bottom:4px;">
+                        <span class="icon-emoji">🍽</span>
+                        推薦美食
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 田中雞卵 / 三木雞卵</div>
+                        <div class="food-meta">超厚實多汁的高湯玉子燒</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 汸臼庵（Houkyu-an）</div>
+                        <div class="food-meta">現炸天婦羅魚板串，推薦章魚紫蘇口味</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 鮮魚木村</div>
+                        <div class="food-meta">串在竹籤上的生魚片串（卡帕喬）</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 櫂（Kai）</div>
+                        <div class="food-meta">章魚蛋 — 章魚頭裡塞鵪鶉蛋，紅紅的小章魚超可愛</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 史努比茶屋</div>
+                        <div class="food-meta">在錦市場裡面，可愛的史努比饅頭和周邊</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 豆乳甜甜圈</div>
+                        <div class="food-meta">小小的現炸甜甜圈，豆香濃郁</div>
+                    </div>
+                    <div class="tip tip-yellow" style="margin-top:14px;">
+                        <div class="tip-title"><span class="icon-emoji">ℹ</span> 逛完之後</div>
+                        錦市場走到底就是<span class="hl">大丸百貨</span>或<span class="hl">新京極商店街</span>，可以繼續逛
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- Return -->
+            <section class="section">
+                <div class="section-head head-red">
+                    <span class="icon-emoji">🌙</span>
+                    回程：返回大阪
+                    <span class="tag">晚間</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-red"><span class="icon-emoji">🚃</span></div>
+                        <div class="info-content">
+                            <strong>京阪 祇園四條站 → 北濱站(K14)</strong>
+                            <span class="sub">搭 <span class="badge badge-red">紅色 特急</span>（這班車最快），一路坐回北濱站 K14</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🏠</span></div>
+                        <div class="info-content">
+                            <strong>轉乘回飯店</strong>
+                            <span class="sub">北濱轉地鐵<span class="badge badge-brown">堺筋線 K</span> → <span class="hl hl-brown">惠美須町（K18）1-B 號出口</span></span>
+                        </div>
+                    </div>
+                    <div class="station-chain">
+                        <span class="stn stn-current">K14 北濱</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-pass">K15 堺筋本町</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-pass">K16 長堀橋</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-pass">K17 日本橋</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-dest">K18 惠美須町</span>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-line"></div>
+                DAY 3 行程結束
+            </footer>
+        </div>
+
+        <!-- ====== DAY 4 PANEL ====== -->
+        <div class="day-panel" id="day-4">
+            <div class="day-label">DAY 4 ─ 黑門市場・大阪城・天王寺</div>
+
+            <nav class="transit-diagram" aria-label="Day 4 行程路線圖">
+                <div class="transit-track">
+                    <div class="t-station">
+                        <span class="t-station-name t-name-brown">飯店</span>
+                        <div class="t-dot t-dot-brown"></div>
+                    </div>
+                    <div class="t-segment seg-brown"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-orange">黑門市場</span>
+                        <div class="t-dot t-dot-orange"></div>
+                    </div>
+                    <div class="t-segment seg-brown"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-green">大阪城</span>
+                        <div class="t-dot t-dot-green"></div>
+                    </div>
+                    <div class="t-segment seg-red"><div class="t-seg-line" style="background:var(--red);"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-purple">天王寺</span>
+                        <div class="t-dot t-dot-purple"></div>
+                    </div>
+                    <div class="t-segment seg-red"><div class="t-seg-line" style="background:var(--red);"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-brown">飯店</span>
+                        <div class="t-dot t-dot-brown"></div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- SECTION 1: Kuromon Market -->
+            <section class="section">
+                <div class="section-head head-orange">
+                    <span class="icon-emoji">🍽</span>
+                    黑門市場早餐
+                    <span class="tag">大阪的廚房</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🚇</span></div>
+                        <div class="info-content">
+                            <strong>交通方式</strong>
+                            <span class="sub">由飯店步行至<span class="hl hl-brown">惠美須町站（K18）</span>，搭 <span class="badge badge-brown">堺筋線 K</span> 坐 1 站至<span class="hl hl-brown">日本橋站（K17）</span></span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🚶</span></div>
+                        <div class="info-content">
+                            <strong>出站指引</strong>
+                            <span class="sub"><span class="hl hl-red">10 號出口</span>出站，即可抵達黑門市場入口</span>
+                        </div>
+                    </div>
+
+                    <div class="station-chain" style="justify-content:center;">
+                        <span class="stn stn-current">K18 惠美須町</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-dest">K17 日本橋</span>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="tip-title" style="color:var(--orange); margin-bottom:4px;">
+                        <span class="icon-emoji">⭐</span>
+                        必吃推薦
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 黑門三平</div>
+                        <div class="food-meta">市場中段。主打生魚片、握壽司、現烤大蝦，新鮮度一流</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 丸善食肉店</div>
+                        <div class="food-meta">高品質現烤和牛，可現場選肉料理，肉質油花分布均勻</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 高橋食品</div>
+                        <div class="food-meta">傳統手工製作的濃郁豆乳，早上來一杯暖胃剛好</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 2: Osaka Castle -->
+            <section class="section">
+                <div class="section-head head-green">
+                    <span class="icon-emoji">🏛</span>
+                    大阪城公園
+                    <span class="tag">經典名勝</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🚇</span></div>
+                        <div class="info-content">
+                            <strong>交通方式</strong>
+                            <span class="sub">由<span class="hl hl-brown">日本橋站（K17）</span>搭 <span class="badge badge-brown">堺筋線 K</span> 至<span class="hl hl-brown">堺筋本町站（K15）</span></span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-green"><span class="icon-emoji">🔄</span></div>
+                        <div class="info-content">
+                            <strong>站內轉乘 <span class="badge badge-teal">中央線 C</span></strong>
+                            <span class="sub">至<span class="hl hl-green">谷町四丁目站</span>，<span class="hl hl-red">9 號出口</span>出站</span>
+                        </div>
+                    </div>
+
+                    <div class="station-chain" style="justify-content:center;">
+                        <span class="stn stn-current">K17 日本橋</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-pass">K16 長堀橋</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn" style="background:var(--teal-light);color:var(--teal);font-weight:700;">K15 堺筋本町 ⇄ 中央線</span>
+                        <span class="icon-emoji">›</span>
+                        <span class="stn stn-dest" style="background:var(--green);">谷町四丁目</span>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="tip-title" style="color:var(--green); margin-bottom:4px;">
+                        <span class="icon-emoji">📷</span>
+                        園區亮點
+                    </div>
+                    <div class="info" style="margin-top:8px;">
+                        <div class="info-icon icon-green"><span class="icon-emoji">📷</span></div>
+                        <div class="info-content">
+                            <strong>天守閣外圍拍照</strong>
+                            <span class="sub">不一定要花錢進天守閣，外圍的護城河與石垣就是最佳拍照點</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-green"><span class="icon-emoji">🏪</span></div>
+                        <div class="info-content">
+                            <strong>JO-TERRACE OSAKA</strong>
+                            <span class="sub">城下文創休閒空間，有咖啡廳和特色小店，逛累了可以坐下休息</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 3: Tennoji -->
+            <section class="section">
+                <div class="section-head head-purple">
+                    <span class="icon-emoji">🏮</span>
+                    天王寺深度探索
+                </div>
+                <div class="section-body">
+                    <!-- Shopping -->
+                    <div class="tip-title" style="color:var(--purple); margin-bottom:4px;">
+                        <span class="icon-emoji">🛍</span>
+                        購物重點
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 阿倍野 Q's Mall</div>
+                        <div class="shop-meta">大型購物中心，內有 Bic Camera、UNIQLO、GU 等，可以一次補齊需要的東西</div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <!-- Deep spots -->
+                    <div class="tip-title" style="color:var(--purple); margin-bottom:4px;">
+                        <span class="icon-emoji">📷</span>
+                        深度景點
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 慶澤園</div>
+                        <div class="shop-meta">天王寺公園內。隱藏在摩天大樓旁的純日式傳統庭園，拍照很有禪意</div>
+                        <span class="food-price" style="background:var(--purple-light);color:var(--purple);">門票 ¥150</span>
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 四天王寺</div>
+                        <div class="shop-meta">距天王寺站步行 12 分鐘。五重塔和紅色迴廊，有京都古樸感但觀光客少很多</div>
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 堀越神社</div>
+                        <div class="shop-meta">天王寺公園對面。氣氛靈驗神祕，適合祈求「一生一次」的心願</div>
+                    </div>
+                    <div class="shop-card">
+                        <div class="shop-name"><span class="icon-emoji">⭐</span> 飛田新地 鯛嘉</div>
+                        <div class="shop-meta">百年老建築「國家登錄有形文化財」，木雕極其精美，值得一看</div>
+                    </div>
+
+                    <div class="tip tip-yellow" style="margin-top:14px;">
+                        <div class="tip-title"><span class="icon-emoji">ℹ</span> 景點備註</div>
+                        <div class="tip-item">以上景點可依體力和時間選擇 2-3 個即可，不必全部走完</div>
+                        <div class="tip-item">慶澤園 + 四天王寺可搭配成一條散步路線</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 4: Dinner & Return -->
+            <section class="section">
+                <div class="section-head head-teal">
+                    <span class="icon-emoji">🌙</span>
+                    晚餐 & 返回飯店
+                    <span class="tag">晚間</span>
+                </div>
+                <div class="section-body">
+                    <div class="tip-title" style="color:var(--orange); margin-bottom:4px;">
+                        <span class="icon-emoji">🍽</span>
+                        晚餐推薦
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 京都東洋亭</div>
+                        <div class="food-meta">位於阿倍野 Harukas 近鐵百貨「塔館」13 樓。必吃鋁箔烤漢堡排與冰鎮番茄沙拉，百年洋食老店</div>
+                        <span class="food-price">¥1,800 ~ ¥2,500</span>
+                    </div>
+
+                    <hr class="sep">
+
+                    <!-- Return routes -->
+                    <div class="tip-title" style="color:var(--teal); margin-bottom:8px;">
+                        <span class="icon-emoji">🔄</span>
+                        回程路線（最順最短方案）
+                    </div>
+
+                    <div class="tip tip-red" style="margin-top:0;">
+                        <div class="tip-title">
+                            <span class="icon-emoji">🚇</span>
+                            推薦方案 — 僅 1 站直達
+                        </div>
+                        <div class="tip-item">由<span class="hl hl-red">天王寺站（M23）</span>搭 <span class="badge badge-red">御堂筋線 M</span>（往梅田方向）</div>
+                        <div class="tip-item">僅 1 站（約 2 分鐘）直達<span class="hl hl-red">動物園前站（M22）</span></div>
+                        <div class="tip-item">由 <span class="hl hl-red">5 號出口</span>（設有手扶梯）出站，步行約 6-8 分鐘抵達飯店</div>
+                    </div>
+
+                    <div class="tip tip-brown" style="margin-top:10px;">
+                        <div class="tip-title">
+                            <span class="icon-emoji">🔄</span>
+                            備選方案 — 走最少路
+                        </div>
+                        <div class="tip-item">若體力極限不想走路，可在<span class="hl hl-red">動物園前站</span>站內轉乘 <span class="badge badge-brown">堺筋線 K</span></div>
+                        <div class="tip-item">坐 1 站至<span class="hl hl-brown">惠美須町站（K18）</span>，<span class="hl hl-brown">3 號出口</span>出站</div>
+                        <div class="tip-item">步行僅 3 分鐘回飯店，但需站內步行轉乘</div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-line"></div>
+                DAY 4 行程結束
+            </footer>
+        </div>
+
+        <!-- ====== DAY 5 PANEL ====== -->
+        <div class="day-panel" id="day-5">
+            <div class="day-label">DAY 5 ─ 飯店 → 關西機場 T2</div>
+
+            <nav class="transit-diagram" aria-label="Day 5 行程路線圖">
+                <div class="transit-track">
+                    <div class="t-station">
+                        <span class="t-station-name t-name-brown">飯店</span>
+                        <div class="t-dot t-dot-brown"></div>
+                    </div>
+                    <div class="t-segment seg-walk"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-brown">新今宮</span>
+                        <div class="t-dot t-dot-brown"></div>
+                    </div>
+                    <div class="t-segment seg-blue"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-blue">關西機場</span>
+                        <div class="t-dot t-dot-blue"></div>
+                    </div>
+                    <div class="t-segment seg-teal"><div class="t-seg-line"></div></div>
+                    <div class="t-station">
+                        <span class="t-station-name t-name-teal">T2 航廈</span>
+                        <div class="t-dot t-dot-teal"></div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- SECTION 1: Hotel to Shin-Imamiya -->
+            <section class="section">
+                <div class="section-head head-brown">
+                    <span class="icon-emoji">🚶</span>
+                    飯店 → 新今宮站
+                    <span class="tag">07:15 前出發</span>
+                </div>
+                <div class="section-body">
+                    <div class="tip tip-red" style="margin-top:0;">
+                        <div class="tip-title"><span class="icon-emoji">⚠</span> 出發時間提醒</div>
+                        <div class="tip-item">請於 <span class="hl hl-red">07:15 前</span>離開飯店，預留步行與乘梯時間</div>
+                        <div class="tip-item">樂桃航空需在起飛前 <span class="hl hl-red">50 分鐘</span>完成報到手續</div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="info">
+                        <div class="info-icon icon-brown"><span class="icon-emoji">🗺</span></div>
+                        <div class="info-content">
+                            <strong>前往南海新今宮站：東出口</strong>
+                            <span class="sub">尋找車站外側的專用電梯</span>
+                        </div>
+                    </div>
+
+                    <ol class="steps steps-brown">
+                        <li><div class="step-text">前往「<span class="hl hl-brown">南海新今宮站：東出口</span>」，找到車站外側的專用電梯</div></li>
+                        <li><div class="step-text">搭電梯直達 <span class="hl hl-brown">2 樓南海檢票口大廳</span></div></li>
+                        <li><div class="step-text">進站後，站內月台同樣設有電梯可直達往機場方向的月台</div></li>
+                    </ol>
+
+                    <div class="tip tip-green" style="margin-top:14px;">
+                        <div class="tip-title"><span class="icon-emoji">ℹ</span> 無障礙提示</div>
+                        全程電梯可達，無需搬運行李上下樓梯
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 2: Train + Airport shuttle -->
+            <section class="section">
+                <div class="section-head head-blue">
+                    <span class="icon-emoji">🚃</span>
+                    南海特急 Rapi:t → 關西機場
+                    <span class="tag">07:39 發車</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-blue"><span class="icon-emoji">🚃</span></div>
+                        <div class="info-content">
+                            <strong>推薦車次：07:39 發車</strong>
+                            <span class="sub">南海特急 Rapi:t，從新今宮站出發</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-icon icon-blue"><span class="icon-emoji">🚩</span></div>
+                        <div class="info-content">
+                            <strong>抵達關西機場站：08:16</strong>
+                        </div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="tip-title" style="color:var(--blue); margin-bottom:4px;">
+                        <span class="icon-emoji">🗺</span>
+                        機場接駁動線（前往 T2）
+                    </div>
+
+                    <ol class="steps steps-blue">
+                        <li><div class="step-text">下車後搭乘月台電梯上樓，出站後向「<span class="hl hl-blue">右方</span>」轉彎（往 AeroPlaza / Terminal 2 方向）</div></li>
+                        <li><div class="step-text">穿過室內平地空橋進入 <span class="hl hl-blue">AeroPlaza</span> 建築物</div></li>
+                        <li><div class="step-text">依照指標搭乘電梯下至 <span class="hl hl-blue">1 樓</span></div></li>
+                        <li><div class="step-text">抵達 1 樓後，搭乘前往「<span class="hl hl-teal">第二航廈（T2）</span>」的免費接駁巴士（車程約 7-10 分鐘）</div></li>
+                    </ol>
+
+                    <div class="tip tip-yellow" style="margin-top:14px;">
+                        <div class="tip-title"><span class="icon-emoji">⚠</span> 重要提醒</div>
+                        <div class="tip-item">樂桃航空在 <span class="hl hl-red">T2 第二航廈</span>，不是 T1！</div>
+                        <div class="tip-item">接駁巴士班次密集，約每 5-8 分鐘一班</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 3: Duty free -->
+            <section class="section">
+                <div class="section-head head-teal">
+                    <span class="icon-emoji">🛍</span>
+                    免稅店最後採買
+                    <span class="tag">通過安檢後</span>
+                </div>
+                <div class="section-body">
+                    <div class="tip tip-teal" style="margin-top:0;">
+                        <div class="tip-title"><span class="icon-emoji">🕐</span> 時間提醒</div>
+                        辦妥樂桃報到手續並通過安檢後，利用候機時間在免稅店選購伴手禮
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="tip-title" style="color:var(--orange); margin-bottom:4px;">
+                        <span class="icon-emoji">⭐</span>
+                        推薦清單
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 呼吸巧克力</div>
+                        <div class="food-meta">大阪超人氣名產，推薦經典可可或抹茶口味。在機場買最方便，不用市區提貨！</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> ROYCE 生巧克力</div>
+                        <div class="food-meta">口感滑順的必買甜點，建議加購保冷袋以維持品質</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> 白色戀人 / 薯條三兄弟</div>
+                        <div class="food-meta">日系伴手禮的常勝軍，送誰都不會出錯</div>
+                    </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">⭐</span> YOKU MOKU 雪茄蛋捲</div>
+                        <div class="food-meta">包裝精美，是非常體面的送禮選擇</div>
+                    </div>
+
+                    <div class="tip tip-yellow" style="margin-top:14px;">
+                        <div class="tip-title"><span class="icon-emoji">ℹ</span> 購物備註</div>
+                        <div class="tip-item">T2 免稅店規模較小，若有特定品項建議提早逛</div>
+                        <div class="tip-item">ROYCE 生巧克力需冷藏保存，保冷袋可在櫃台加購</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="connector">↓</div>
+
+            <!-- SECTION 4: Flight home -->
+            <section class="section">
+                <div class="section-head head-blue">
+                    <span class="icon-emoji">✈</span>
+                    回程航班
+                    <span class="tag">11:00 起飛</span>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <div class="info-icon icon-blue"><span class="icon-emoji">✈</span></div>
+                        <div class="info-content">
+                            <strong>樂桃航空</strong>
+                            <span class="sub">關西 KIX T2 → 高雄 KHH</span>
+                        </div>
+                    </div>
+                    <div class="tip tip-blue">
+                        <div class="tip-title"><span class="icon-emoji">ℹ</span> 航班資訊</div>
+                        <div class="tip-item">起飛：<span class="hl hl-blue">11:00</span>（日本時間）</div>
+                        <div class="tip-item">抵達：<span class="hl hl-blue">13:10</span>（台灣時間）</div>
+                        <div class="tip-item">飛行時間約 3 小時 10 分</div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-line"></div>
+                旅途愉快，期待下次再訪！ ✈️
+            </footer>
+        </div>
+
+    
+</div>
+
+<!-- Back to top button -->
+
+
+
+
+</body>
+</html>
