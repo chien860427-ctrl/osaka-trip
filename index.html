@@ -154,6 +154,7 @@
             transition: all .25s ease;
             white-space: nowrap;
             position: relative;
+            text-align: center;
         }
         .tab-btn:hover:not(:disabled) {
             color: rgba(255,255,255,.7);
@@ -298,7 +299,7 @@
         .seg-brown .t-seg-line { background: var(--brown); }
         .seg-red .t-seg-line { background: var(--red); }
         .seg-train .t-seg-line { background: var(--red); }
-        .seg-walk .t-seg-line { background: var(--green); border-style: dashed; height: 2px; border: none; background: repeating-linear-gradient(90deg, var(--green) 0 6px, transparent 6px 10px); }
+        .seg-walk .t-seg-line { background: var(--green); height: 3px; }
         .seg-orange .t-seg-line { background: var(--orange); }
         .seg-teal .t-seg-line { background: var(--teal); }
 
@@ -763,15 +764,21 @@
                         <span class="icon-emoji">🍽</span>
                         必吃美食清單
                     </div>
-                    <div class="tip tip-orange" style="margin-top:8px;">
-                        <div class="tip-title"><span class="icon-emoji">⭐</span> 正餐類</div>
+                    <div class="tip" style="margin-top:8px; background:transparent; border:1px solid #ccc;">
+                        <div class="tip-title" style="color:var(--text);"><span class="icon-emoji">🍽</span> 美食推薦</div>
                         <div class="tip-item">螃蟹道樂（烤蟹腳）</div>
                         <div class="tip-item">一蘭拉麵</div>
                         <div class="tip-item">金龍拉麵</div>
                         <div class="tip-item">串炸達摩</div>
+                        <div class="tip-item"><span class="icon-emoji">🔥</span> <span class="hl">板前燒肉 一斗（東心齋橋本館）</span>— 超人氣板前燒肉，師傅眼前炭火現烤，品質高且價格合理，建議提前預約</div>
+                        <div class="tip tip-red" style="margin-top:8px; margin-left:18px;">
+                            <div class="tip-title"><span class="icon-emoji">🚶</span> 交通備註</div>
+                            <div class="tip-item">從「<span class="hl hl-blue">地鐵心齋橋站</span>」：由 <span class="hl hl-red">6 號出口</span>出站，進入心齋橋筋商店街向南走，在周防町筋（Suo-machi）左轉往東，步行約 6-8 分鐘抵達</div>
+                            <div class="tip-item">從「<span class="hl hl-blue">地鐵長堀橋站</span>」（最近）：由 <span class="hl hl-red">7 號出口</span>出站，步行約 3-5 分鐘即達</div>
+                        </div>
                     </div>
-                    <div class="tip tip-orange" style="margin-top:8px;">
-                        <div class="tip-title"><span class="icon-emoji">⭐</span> 街邊小吃</div>
+                    <div class="tip" style="margin-top:8px; background:transparent; border:1px solid #ccc;">
+                        <div class="tip-title" style="color:var(--text);"><span class="icon-emoji">⭐</span> 街邊小吃</div>
                         <div class="tip-item">本家章魚燒</div>
                         <div class="tip-item">章魚燒道樂 Wanaka</div>
                         <div class="tip-item">PABLO 半熟起司塔</div>
@@ -1688,6 +1695,11 @@
                         <div class="food-meta">位於阿倍野 Harukas 近鐵百貨「塔館」13 樓。必吃鋁箔烤漢堡排與冰鎮番茄沙拉，百年洋食老店</div>
                         <span class="food-price">¥1,800 ~ ¥2,500</span>
                     </div>
+                    <div class="food-card">
+                        <div class="food-name"><span class="icon-emoji">🔥</span> Moriya（御好燒 もりや）</div>
+                        <div class="food-meta">在地老牌御好燒餐廳，從阿倍野 Q's Mall 往南步行約 5-8 分鐘即可抵達，價格平實</div>
+                        <span class="food-price">¥1,000 ~ ¥2,000</span>
+                    </div>
 
                     <hr class="sep">
 
@@ -1910,7 +1922,7 @@
 
             <footer class="footer">
                 <div class="footer-line"></div>
-                旅途愉快，期待下次再訪！ ✈️
+ 
             </footer>
         </div>
 
